@@ -1,0 +1,43 @@
+.flex-container {
+  
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex-square {
+  height: 100px;
+  width: 100px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  /* X's and O's */
+  font-size: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.wrap {
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.flex-square.img:hover {
+  cursor: pointer;
+  background-color: #80cd92;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
