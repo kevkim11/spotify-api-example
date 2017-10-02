@@ -17,13 +17,20 @@ class Wall extends Component {
     this.state = {
       songList: []  // my response.
     };
-    this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
+    this.numOfSquare = 50; //numOfAlbums to retrieve. Max=50
   }
 
-  componentDidMount() {
+  componentDidMount(props) {
     // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
     console.log('this.state', this.state);
-    var accessToken = 'BQCjFVSlREaS958VQEad423hwDbjkrZ_7tgcvO-XTkXC3R1jVzvPfkMWb36xtxRHuLOXq4KST6mHliOg-btZfjltLCOnmIERGZwXi5eL8QE7o4j8SDF2W0a_6ocMWbVYNysMx0kfqQRWwtkGDAd7MVB4iQsxSMA71k3xlbS5eTzkGTpGHwE';
+    var accessToken = 'BQDKGD-61r21vghk7qbx_pez0I_3qTmKRwmSvS2hJxAZqFYqiDo6RfZTshsKv_0rVNe56_tYJsYR-vGoicIjgaIbNTU9nLIEaucNp8jwgb93i4tNVBMKJNhgaUwDqoMGX2Y6iNdBi6zobFtAVR2sUkIEmyDpZ3d31jmeV7Te6qHun1O9Ly4';
+    // this.getUserSongs(accessToken)
+    // this.getUserAlbums(accessToken)
+    this.getUserTopTracks(accessToken)
+  }
+
+  // Filter functions
+  getUserSongs(accessToken) {
     const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
     const FETCH_URL = BASE_URL + 'tracks?limit=' + this.numOfSquare;
     var myOptions = {
@@ -42,8 +49,90 @@ class Wall extends Component {
         const songList = json.items;
         console.log(songList[0]);
         const temp_ar = [];
-        for (var i=0; i<songList.length; i+=1) {
+        for (let i=0; i<songList.length; i+=1) {
           temp_ar.push(songList[i].track.album.images[1].url)
+        }
+        this.setState({songList: temp_ar });
+        // const artist = json.artists.items[0];
+        // this.setState({ artist });
+      })
+  }
+
+  getUserAlbums(accessToken) {
+    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
+    const FETCH_URL = BASE_URL + 'albums?limit=' + this.numOfSquare;
+    var myOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        const albumList = json.items;
+        // console.log(songList[0]);
+        const temp_ar = [];
+        for (let i=0; i<albumList.length; i+=1) {
+          temp_ar.push(albumList[i].album.images[1].url)
+        }
+        this.setState({songList: temp_ar });
+        // const artist = json.artists.items[0];
+        // this.setState({ artist });
+      })
+  }
+
+  getUserTopTracks(accessToken) {
+    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
+    const FETCH_URL = BASE_URL + 'top/tracks';
+    var myOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        const songList = json.items;
+        console.log(songList[0]);
+        const temp_ar = [];
+        for (let i=0; i<songList.length; i+=1) {
+          temp_ar.push(songList[i].album.images[1].url)
+        }
+        this.setState({songList: temp_ar });
+      })
+  }
+
+  getUserRecentlyPlayedTracks(accessToken) {
+    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
+    const FETCH_URL = BASE_URL + 'albums?limit=' + this.numOfSquare;
+    var myOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        const albumList = json.items;
+        // console.log(songList[0]);
+        const temp_ar = [];
+        for (let i=0; i<albumList.length; i+=1) {
+          temp_ar.push(albumList[i].album.images[1].url)
         }
         this.setState({songList: temp_ar });
         // const artist = json.artists.items[0];
@@ -66,7 +155,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      'currentState': 'songs'
     }
   }
 
