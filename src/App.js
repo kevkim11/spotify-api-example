@@ -6,6 +6,9 @@ function Square(props) {
   return (
     <div className="flex-square">
       <img src={props.imageUrl} alt=""></img>
+      <div className="overlay">
+        <p className="text">Song Name</p>
+      </div>
       {/*<img src={'https://i.scdn.co/image/9954c96d21486da541793eca1d7a338b45509f8c'} alt="boohoo"></img>*/}
     </div>
   );
@@ -17,19 +20,25 @@ class Wall extends Component {
     this.state = {
       songList: []  // my response.
     };
-    this.numOfSquare = 50; //numOfAlbums to retrieve. Max=50
+    this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
   }
 
   componentDidMount(props) {
     // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
     console.log('this.state', this.state);
-    var accessToken = 'BQDKGD-61r21vghk7qbx_pez0I_3qTmKRwmSvS2hJxAZqFYqiDo6RfZTshsKv_0rVNe56_tYJsYR-vGoicIjgaIbNTU9nLIEaucNp8jwgb93i4tNVBMKJNhgaUwDqoMGX2Y6iNdBi6zobFtAVR2sUkIEmyDpZ3d31jmeV7Te6qHun1O9Ly4';
+    var accessToken = 'BQCW2JgibShiHG-Ipe1qyApvRxd0MFIfVPFN62HuQsJTvi1q2dg5zGtPoFC9jLJgbejGCDvC3Vj9oMwDWXgeVArdxpzVxOLqwyMUrOpZ-lqY2HXKsczli5XO8Sof4uUhxVJvGGi9TAGu4xiTH8AVzXNqvjncWDr4DUa2ySdY7DqILegfMH4';
     // this.getUserSongs(accessToken)
     // this.getUserAlbums(accessToken)
     this.getUserTopTracks(accessToken)
   }
 
   // Filter functions
+  /**
+   * Filter Ideas
+   * /v1/users/{user_id}/playlists/{playlist_id}
+   * /v1/users/{user_id}/playlists/{playlist_id}/tracks
+   * @param accessToken
+   */
   getUserSongs(accessToken) {
     const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
     const FETCH_URL = BASE_URL + 'tracks?limit=' + this.numOfSquare;
@@ -88,7 +97,7 @@ class Wall extends Component {
 
   getUserTopTracks(accessToken) {
     const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
-    const FETCH_URL = BASE_URL + 'top/tracks';
+    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare;
     var myOptions = {
       method: 'GET',
       headers: {

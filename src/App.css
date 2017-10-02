@@ -15,6 +15,7 @@
 }
 
 .flex-square {
+  position: relative;
   height: 200px;
   width: 200px;
   box-sizing: border-box;
@@ -32,12 +33,13 @@
   flex-wrap: wrap;
 }
 
-.flex-square.img:hover {
+.flex-square:hover {
   cursor: pointer;
-  background-color: #80cd92;
+  /*background-color: #80cd92;*/
 }
 
 img {
+  display: block;
   max-width: 100%;
   max-height: 100%;
 }
@@ -45,4 +47,29 @@ img {
 img:hover {
   opacity: 0.5;
   filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #80cd92;
+}
+.flex-square:hover .overlay {
+  opacity: 0.75;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
