@@ -1,15 +1,42 @@
 import React, { Component } from 'react';
 import './App.css';
 
+function createArtistsName(props){
+  /*
+    Helper Function for
+    getUsersTopTracks
+   */
+  let artistsName = "";
+  if(props.item.artists.length > 1) {
+    props.item.artists.map((artist)=>{
+      artistsName += (artist.name + ', ')
+    });
+    artistsName = artistsName.replace(/,\s*$/, "");
+  } else {
+    artistsName = props.item.artists[0].name
+  }
+  return artistsName
+}
+
+function createSongName(props){
+  /*
+    Helper Function for
+    getUsersTopTracks
+   */
+  return props.item.name
+}
 
 function Square(props) {
+  let artistsName = createArtistsName(props);
+  let songName = createSongName(props);
+
   return (
     <div className="flex-square">
       <img src={props.item.album.images[1].url} alt=""/>
       <div className="overlay">
-        <div className="text">hello love</div>
+        <div className="text">{songName} - {artistsName}</div>
+        {/*<div className="text">songName: </div>*/}
       </div>
-      {/*<img src={'https://i.scdn.co/image/9954c96d21486da541793eca1d7a338b45509f8c'} alt="boohoo"></img>*/}
     </div>
   );
 }
@@ -17,20 +44,45 @@ function Square(props) {
 class Wall extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentItemList: [],
-    };
-    this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
+    // this.props = props
+    // this.state = {
+    //   currentItemList: props.itemList,
+    // };
+    // let itemList = props.itemList
+    // this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
+    // this.time_range = 'short_term'
   }
 
-  componentDidMount(props) {
-    // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
-    console.log('this.state', this.state);
-    var accessToken = 'BQCRpx80UDEkqTdql2ibRg_2CG8t9Rc_wB_AMs-LKEV3vicFNnxKwBSzl60tvxSI1jtyDVgBiKNfOMAc4whljTFVttlcg8FMkK8ORggEJLdLRFPLi7VZiLJJcwUdT6b5TsEpBrB9RuPeBfnFPLKnFlgaThQHrU6Zt-Mc_g3F_9VBv3mWpgQ';
-    // this.getUserSongs(accessToken)
-    // this.getUserAlbums(accessToken)
-    this.getUserTopTracks(accessToken)
-  }
+  // componentDidMount(props) {
+  //   // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
+  //   // console.log('this.state', this.state);
+  //   var accessToken = 'BQAJktMR5guiXK0Da2GYZ5cEQvQhX3fVLiwQaymx90peOuT5dpqABNfIBs4ZpZw0ousMk26_ulkoQyr2Kr8j3BguL1Pvvofd3RbrWMP68C46eBRkfC-I_zOh5qPatVfog8Zd6b4Wqfba1hHWNxkF47HYa-4r4D9rsy8sbowpfdGA-cGrzLc&refresh_token=AQC3Cv2BAO1TqIyhSWQ6ojjqwH3hRxT-8URgsRzPXUf8E5pYqmFSBuH5EUFuPtb2M-KGenc-9pkcViKpGxKJDfiJ2S8mOUypVgCCS2tcCQtxvgEbQh7gYpJBER-ic4OJaxE';
+  //   // this.getUserSongs(accessToken)
+  //   // this.getUserAlbums(accessToken)
+  //   this.getUserTopTracks(accessToken)
+  // }
+  //
+  // getUserTopTracks(accessToken) {
+  //   const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
+  //   const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare + '&time_range=' + this.time_range;
+  //   var myOptions = {
+  //     method: 'GET',
+  //     headers: {
+  //       'Authorization': 'Bearer ' + accessToken
+  //     },
+  //     mode: 'cors',
+  //     cache: 'default'
+  //   };
+  //
+  //   fetch(FETCH_URL, myOptions)
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       console.log(json);
+  //       const songList = json.items;
+  //       console.log(songList[0]);
+  //       this.setState({currentItemList: songList});
+  //     })
+  // }
 
   // Filter functions
   /**
@@ -95,29 +147,6 @@ class Wall extends Component {
   //     })
   // }
 
-  getUserTopTracks(accessToken) {
-    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
-    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare;
-    var myOptions = {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      },
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    fetch(FETCH_URL, myOptions)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        const songList = json.items;
-        console.log(songList[0]);
-        this.setState({currentItemList: songList});
-        // this.setState({songList: temp_ar, artistList: temp_ar2 });
-      })
-  }
-
   // getUserRecentlyPlayedTracks(accessToken) {
   //   const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
   //   const FETCH_URL = BASE_URL + 'albums?limit=' + this.numOfSquare;
@@ -152,38 +181,81 @@ class Wall extends Component {
   //     })
   // }
 
+  // render() {
+  //   let itemNodes = this.state.currentItemList.map((item, i) => {
+  //     return (
+  //       <Square item={item} key={i}/>
+  //     )
+  //   });
+  //   if(this.state.currentItemList.length === 0){return <p> {'loading...'} </p>}
+  //   return (
+  //     <div className="flex-container wrap">
+  //     {itemNodes}
+  //     </div>
+  //   )
+  // }
   render() {
-    var itemNodes = this.state.currentItemList.map((item, i) => {
+    let itemNodes = this.props.itemList.map((item, i) => {
       return (
         <Square item={item} key={i}/>
       )
     });
-
-    console.log("!!!!this.state.currentItemList: " );
-    console.log(this.state.currentItemList);
-    if(this.state.currentItemList.length === 0){return <p> {'loading...'} </p>}
+    if(this.props.itemList.length === 0){return <p> {'loading...'} </p>}
     return (
       <div className="flex-container wrap">
-      {itemNodes}
+        {itemNodes}
       </div>
     )
   }
 }
-{/*{this.state.currentItemList.map((currentItem, i) => <Square imageUrl={currentItem} key={i}/>)}*/}
+
+
 class App extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     'currentState': 'songs'
-  //   }
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentItemList: [],
+    };
+    this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
+    this.time_range = 'short_term'
+  }
+
+  componentDidMount(props) {
+    // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
+    // console.log('this.state', this.state);
+    var accessToken = 'BQAJktMR5guiXK0Da2GYZ5cEQvQhX3fVLiwQaymx90peOuT5dpqABNfIBs4ZpZw0ousMk26_ulkoQyr2Kr8j3BguL1Pvvofd3RbrWMP68C46eBRkfC-I_zOh5qPatVfog8Zd6b4Wqfba1hHWNxkF47HYa-4r4D9rsy8sbowpfdGA-cGrzLc&refresh_token=AQC3Cv2BAO1TqIyhSWQ6ojjqwH3hRxT-8URgsRzPXUf8E5pYqmFSBuH5EUFuPtb2M-KGenc-9pkcViKpGxKJDfiJ2S8mOUypVgCCS2tcCQtxvgEbQh7gYpJBER-ic4OJaxE';
+    // this.getUserSongs(accessToken)
+    // this.getUserAlbums(accessToken)
+    this.getUserTopTracks(accessToken)
+  }
+
+  getUserTopTracks(accessToken) {
+    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
+    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare + '&time_range=' + this.time_range;
+    var myOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        const songList = json.items;
+        console.log(songList[0]);
+        this.setState({currentItemList: songList});
+      })
+  }
 
   render() {
-
     return (
       // return JSX
-      <Wall />
+      <Wall itemList={this.state.currentItemList}/>
     )
   }
 
