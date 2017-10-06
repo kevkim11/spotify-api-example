@@ -25,15 +25,20 @@ function createSongName(props){
   return props.item.name
 }
 
+function createImgUrl(props) {
+  return props.item.album.images[1].url
+}
 
 
 function Square(props) {
+  /* Square will only show tracks/albums*/
   let artistsName = createArtistsName(props);
   let songName = createSongName(props);
+  let imgUrl = createImgUrl(props);
 
   return (
     <div className="flex-square">
-      <img src={props.item.album.images[1].url} alt=""/>
+      <img src={imgUrl} alt=""/>
       <div className="overlay">
         <div className="text">{songName} - {artistsName}</div>
         {/*<div className="text">songName: </div>*/}

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import RecentlyPlayed from './spotify-filter/RecentlyPlayed.js'
 import Square from './components/Square.js'
+import RecentlyPlayed from './spotify-filter/RecentlyPlayed.js'
+import TopTracks from './spotify-filter/TopTracks.js'
+import TopArtists from './spotify-filter/TopArtists.js'
+
 
 // Filter functions
 /**
@@ -52,24 +55,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentItemList: [],
+      currentFilter: 1,
     };
-    this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
-    this.time_range = 'short_term'
+    // this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
+    // this.time_range = 'short_term'
   }
 
-  componentDidMount(props) {
+  componentDidMount() {
     // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
     // console.log('this.state', this.state);
-    var accessToken = 'BQBG_nw92LHN-7NRQJkBs6kRg1rmkI4InAcpz9lwE3Ybmsv8voWj7UbxrFpOv4K0qNHBbzzSsyLKaLtZSVec3iA7zoqH12n6Wh4zMYmwhRTvEI3hhhBjQ0FiaIwl3pzTCOnRjRsIWado1Of51O7qXViZTGI5SI0Tn9vpimZwcOimQcU6IBY';
-    // this.getUserSongs(accessToken)
-    // this.getUserAlbums(accessToken)
-    // this.getUserTopTracks(accessToken)
+    var accessToken = 'BQCWI1on4UZDflPoJnJ4W2g0Ml--tYm-qzJdYCrDVFn7frB6kJux9hhLSQlGKxoTtcymrl4JodxFqSJknsjR9-e-Wy_oE0BJppQea9DRz704ju9umSRvBH1TKKOLb2BlNwILbKphKVC74qicsxCKAs_2PVrR0xxp9ksm66jLx_HGQGKbpiayN9Y';
   }
 
   getUserTopTracks(accessToken) {
     const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
-    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare + '&time_range=' + this.time_range;
+    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare //+ '&time_range=' + this.time_range;
     var myOptions = {
       method: 'GET',
       headers: {
@@ -94,7 +94,12 @@ class App extends Component {
       // return JSX
       <div className="app-header">
       {/*<Wall itemList={this.state.currentItemList}/>*/}
-      <RecentlyPlayed />
+        <RecentlyPlayed />
+        <div>
+          ------------------------------------------------
+        </div>
+        <TopTracks />
+        <TopArtists/>
       </div>
     )
   }

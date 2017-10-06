@@ -7,12 +7,12 @@ class RecentlyPlayed extends Component {
     this.state = {
       currentItemList: []
     };
-    this.numOfSquare = 30
+    this.numOfSquare = 50
   }
 
   componentDidMount() {
     // Global Variables
-    var accessToken = 'BQByqy4ztjYsUMs4Mw41pSLnVmVK-xM_KugomRoaikVcwW3B1OLBZCwMZHFZTkN_nLpLwFlsG_vcGr2NRQZtNPL7EO7ZrshE9dApzLCXiO1wUQiLJwJ4JrQHI_K2JzTj_AZzuiOBaVvbuNZUfLjT9LoT-_bRMGq6CbxMvex3BEisbmU5Gu3AXDA';
+    var accessToken = 'BQCWI1on4UZDflPoJnJ4W2g0Ml--tYm-qzJdYCrDVFn7frB6kJux9hhLSQlGKxoTtcymrl4JodxFqSJknsjR9-e-Wy_oE0BJppQea9DRz704ju9umSRvBH1TKKOLb2BlNwILbKphKVC74qicsxCKAs_2PVrR0xxp9ksm66jLx_HGQGKbpiayN9Y';
     const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
     const FETCH_URL = BASE_URL + 'player/recently-played?limit=' + this.numOfSquare
     var myOptions = {
