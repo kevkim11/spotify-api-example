@@ -27,7 +27,6 @@ class App extends Component {
   componentDidMount() {
     // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
     // console.log('this.state', this.state);
-    var accessToken = 'BQCWI1on4UZDflPoJnJ4W2g0Ml--tYm-qzJdYCrDVFn7frB6kJux9hhLSQlGKxoTtcymrl4JodxFqSJknsjR9-e-Wy_oE0BJppQea9DRz704ju9umSRvBH1TKKOLb2BlNwILbKphKVC74qicsxCKAs_2PVrR0xxp9ksm66jLx_HGQGKbpiayN9Y';
   }
 
   getUserTopTracks(accessToken) {
@@ -53,31 +52,49 @@ class App extends Component {
   }
 
   render() {
+    var currentSpotifyFilter = 1;
+
+    if(this.state.currentFilter === 1){
+      currentSpotifyFilter = <RecentlyPlayed />
+    }
+    if(this.state.currentFilter === 2){
+      currentSpotifyFilter = <TopTracks />
+    }
+    if(this.state.currentFilter === 3){
+      currentSpotifyFilter = <TopArtists/>
+    }
     return (
       <div className="app">
         <div className="app-header"> </div>
         <div className="app-wrapper">
           <div className="app-nav">
-            <div className={"nav-item screen1"}>
-              <p>screen 1</p>
+            <div
+              className={"nav-item screen1"}
+              onClick={()=>{this.setState({currentFilter: 1})}}>
+              <p>Recently Played</p>
             </div>
-            <div className={"nav-item screen2"}>
-              <p>screen 2</p>
+            <div
+              className={"nav-item screen2"}
+              onClick={()=>{this.setState({currentFilter: 2})}}>
+              <p>Top Tracks</p>
             </div>
-            <div className={"nav-item screen3"}>
-              <p>screen 3</p>
+            <div
+              className={"nav-item screen3"}
+              onClick={()=>{this.setState({currentFilter: 3})}}>
+              <p>Top Artists</p>
             </div>
           </div>
           <div className="main-content">
-            <RecentlyPlayed />
-            <div>
-              ------------------------------------------------------------------------------------------------
-            </div>
-            <TopTracks />
-            <div>
-              ------------------------------------------------------------------------------------------------
-            </div>
-            <TopArtists/>
+            {/*<RecentlyPlayed />*/}
+            {/*<div>*/}
+              {/*------------------------------------------------------------------------------------------------*/}
+            {/*</div>*/}
+            {/*<TopTracks />*/}
+            {/*<div>*/}
+              {/*------------------------------------------------------------------------------------------------*/}
+            {/*</div>*/}
+            {/*<TopArtists/>*/}
+            {currentSpotifyFilter}
           </div>
         </div>
     </div>

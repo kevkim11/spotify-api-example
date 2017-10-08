@@ -1,4 +1,4 @@
 
-var accessToken = "BQA9xBlBlWNECNvrkp8SAsk1huzcMjPheE8F7b9fFGzDrNrm3ne1EME_3dVhuKCW_ADansTxSy_qz8zd-clwSVADXm-jDb_YS8qZjBqPIaD6o799YNhs5Vb4AiFOMBBLTEWIIIZL6UDTGdy71M_kVz3qrGNwoSV1zH_UrZ7eYj3l4_oICPc_ECY";
+var accessToken = "BQCVdjdpxBS5UIwK9nIEr-QL1jit_uV-nnIJfPE3ywaqwNNqbhFE4f73BqTf7Zk-v9l8HORzcuo-izHdfw0L6QYfjVh4bgH73o8tv7yxA24O-zJuZf2EquqDvAM-E37cbAHwt6B-gnCArywg--7_XfQmZ8WFb9rD-ZUwG1sgwspiSiGWYTyr66I";
 
 export default accessToken;

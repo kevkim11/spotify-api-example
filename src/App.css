@@ -125,6 +125,10 @@ img:hover {
   background-color: coral;
 }
 
+.nav-item:hover {
+  background-color: yellow;
+}
+
 .main-content {
   flex: 1;
   background-color: gray;
