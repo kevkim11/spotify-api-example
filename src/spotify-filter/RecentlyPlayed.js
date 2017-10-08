@@ -7,7 +7,8 @@ class RecentlyPlayed extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentItemList: []
+      currentItemList: [],
+      requestFailed: false
     };
     this.numOfSquare = 12
   }
@@ -26,11 +27,21 @@ class RecentlyPlayed extends Component {
     };
 
     fetch(FETCH_URL, myOptions)
+      .then(response => {
+        if(!response.ok){
+          throw Error("Custom Network request failed")
+        }
+        return response
+      })
       .then(response => response.json())
       .then(json => {
         console.log(json);
         const songList = json.items;
         this.setState({currentItemList: songList});
+      }, () => {
+        this.setState({
+          requestFailed: true
+        })
       })
   }
 
@@ -40,6 +51,7 @@ class RecentlyPlayed extends Component {
         <Square item={item.track} id={i} key={i}/>
       )
     });
+    if(this.state.requestFailed){return <p> {'Failed!'} </p>}
     if(this.state.currentItemList.length === 0){return <p> {'loading...'} </p>}
     return (
       <div className="flex-container wrap">

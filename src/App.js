@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom'
 import './App.css';
 import Square from './components/Square.js'
+import Nav from './components/Nav.js'
 import RecentlyPlayed from './spotify-filter/RecentlyPlayed.js'
 import TopTracks from './spotify-filter/TopTracks.js'
 import TopArtists from './spotify-filter/TopArtists.js'
@@ -27,6 +28,8 @@ class App extends Component {
   componentDidMount() {
     // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
     // console.log('this.state', this.state);
+
+
   }
 
   updateScreen(newCurrentScreen) {
@@ -49,6 +52,7 @@ class App extends Component {
       <div className="app">
         <div className="app-header"> </div>
         <div className="app-wrapper">
+          {/*<Nav/>*/}
           <div className="app-nav">
             <div
               className={this.state.currentFilter === 1 ? "nav-item screen1 activeItem" : "nav-item screen1"}
