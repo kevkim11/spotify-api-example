@@ -1,0 +1,4 @@
+
+var accessToken = "BQA9xBlBlWNECNvrkp8SAsk1huzcMjPheE8F7b9fFGzDrNrm3ne1EME_3dVhuKCW_ADansTxSy_qz8zd-clwSVADXm-jDb_YS8qZjBqPIaD6o799YNhs5Vb4AiFOMBBLTEWIIIZL6UDTGdy71M_kVz3qrGNwoSV1zH_UrZ7eYj3l4_oICPc_ECY";
+
+export default accessToken;

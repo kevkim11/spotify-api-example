@@ -5,9 +5,8 @@ function createArtistsName(props){
 }
 
 function createImgUrl(props) {
-  return props.item.images[1].url
+  return props.item.images[0].url
 }
-
 
 function Circle(props) {
   /* Circle will only show artists*/

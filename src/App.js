@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDom from 'react-dom'
 import './App.css';
 import Square from './components/Square.js'
 import RecentlyPlayed from './spotify-filter/RecentlyPlayed.js'
@@ -13,6 +14,77 @@ import TopArtists from './spotify-filter/TopArtists.js'
  * /v1/users/{user_id}/playlists/{playlist_id}/tracks
  * @param accessToken
  */
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentFilter: 1,
+    };
+  }
+
+  componentDidMount() {
+    // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
+    // console.log('this.state', this.state);
+    var accessToken = 'BQCWI1on4UZDflPoJnJ4W2g0Ml--tYm-qzJdYCrDVFn7frB6kJux9hhLSQlGKxoTtcymrl4JodxFqSJknsjR9-e-Wy_oE0BJppQea9DRz704ju9umSRvBH1TKKOLb2BlNwILbKphKVC74qicsxCKAs_2PVrR0xxp9ksm66jLx_HGQGKbpiayN9Y';
+  }
+
+  getUserTopTracks(accessToken) {
+    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
+    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare //+ '&time_range=' + this.time_range;
+    var myOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        const songList = json.items;
+        console.log(songList[0]);
+        this.setState({currentItemList: songList});
+      })
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <div className="app-header"> </div>
+        <div className="app-wrapper">
+          <div className="app-nav">
+            <div className={"nav-item screen1"}>
+              <p>screen 1</p>
+            </div>
+            <div className={"nav-item screen2"}>
+              <p>screen 2</p>
+            </div>
+            <div className={"nav-item screen3"}>
+              <p>screen 3</p>
+            </div>
+          </div>
+          <div className="main-content">
+            <RecentlyPlayed />
+            <div>
+              ------------------------------------------------------------------------------------------------
+            </div>
+            <TopTracks />
+            <div>
+              ------------------------------------------------------------------------------------------------
+            </div>
+            <TopArtists/>
+          </div>
+        </div>
+    </div>
+    )
+  }
+}
+export default App;
 
 class Wall extends Component {
   constructor(props) {
@@ -48,61 +120,3 @@ class Wall extends Component {
     )
   }
 }
-
-
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentFilter: 1,
-    };
-    // this.numOfSquare = 30; //numOfAlbums to retrieve. Max=50
-    // this.time_range = 'short_term'
-  }
-
-  componentDidMount() {
-    // Why fetch in componentDidMount --> https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
-    // console.log('this.state', this.state);
-    var accessToken = 'BQCWI1on4UZDflPoJnJ4W2g0Ml--tYm-qzJdYCrDVFn7frB6kJux9hhLSQlGKxoTtcymrl4JodxFqSJknsjR9-e-Wy_oE0BJppQea9DRz704ju9umSRvBH1TKKOLb2BlNwILbKphKVC74qicsxCKAs_2PVrR0xxp9ksm66jLx_HGQGKbpiayN9Y';
-  }
-
-  getUserTopTracks(accessToken) {
-    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
-    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare //+ '&time_range=' + this.time_range;
-    var myOptions = {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      },
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    fetch(FETCH_URL, myOptions)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        const songList = json.items;
-        console.log(songList[0]);
-        this.setState({currentItemList: songList});
-      })
-  }
-
-  render() {
-    return (
-      // return JSX
-      <div className="app-header">
-      {/*<Wall itemList={this.state.currentItemList}/>*/}
-        <RecentlyPlayed />
-        <div>
-          ------------------------------------------------
-        </div>
-        <TopTracks />
-        <TopArtists/>
-      </div>
-    )
-  }
-
-}
-export default App;
