@@ -36,7 +36,7 @@ class TopArtists extends Component {
   render() {
     let itemNodes = this.state.currentItemList.map((item, i) => {
       return (
-        <Circle item={item} key={i}/>
+        <Circle item={item} key={i} id={i}/>
       )
     });
     if(this.state.currentItemList.length === 0){return <p> {'loading...'} </p>}

@@ -123,6 +123,11 @@ img:hover {
 .nav-item {
   height: 60px;
   background-color: coral;
+  cursor: pointer;
+}
+
+.nav-item.activeItem {
+  background-color: white;
 }
 
 .nav-item:hover {

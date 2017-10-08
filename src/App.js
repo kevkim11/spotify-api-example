@@ -29,26 +29,8 @@ class App extends Component {
     // console.log('this.state', this.state);
   }
 
-  getUserTopTracks(accessToken) {
-    const BASE_URL = 'https://api.spotify.com/v1/me/'; //https://api.spotify.com/v1/albums/
-    const FETCH_URL = BASE_URL + 'top/tracks?limit=' + this.numOfSquare //+ '&time_range=' + this.time_range;
-    var myOptions = {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      },
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    fetch(FETCH_URL, myOptions)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        const songList = json.items;
-        console.log(songList[0]);
-        this.setState({currentItemList: songList});
-      })
+  updateScreen(newCurrentScreen) {
+    this.setState({currentFilter: newCurrentScreen})
   }
 
   render() {
@@ -69,18 +51,18 @@ class App extends Component {
         <div className="app-wrapper">
           <div className="app-nav">
             <div
-              className={"nav-item screen1"}
-              onClick={()=>{this.setState({currentFilter: 1})}}>
+              className={this.state.currentFilter === 1 ? "nav-item screen1 activeItem" : "nav-item screen1"}
+              onClick={(e)=>{this.updateScreen(1)}}>
               <p>Recently Played</p>
             </div>
             <div
-              className={"nav-item screen2"}
-              onClick={()=>{this.setState({currentFilter: 2})}}>
+              className={this.state.currentFilter === 2 ? "nav-item screen2 activeItem" : "nav-item screen2"}
+              onClick={(e)=>{this.updateScreen(2)}}>
               <p>Top Tracks</p>
             </div>
             <div
-              className={"nav-item screen3"}
-              onClick={()=>{this.setState({currentFilter: 3})}}>
+              className={this.state.currentFilter === 3 ? "nav-item screen3 activeItem" : "nav-item screen3"}
+              onClick={(e)=>{this.updateScreen(3)}}>
               <p>Top Artists</p>
             </div>
           </div>

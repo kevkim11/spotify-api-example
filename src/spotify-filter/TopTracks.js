@@ -36,7 +36,7 @@ class TopTracks extends Component {
   render() {
     let itemNodes = this.state.currentItemList.map((item, i) => {
       return (
-        <Square item={item} key={i}/>
+        <Square item={item} key={i} id={i}/>
       )
     });
     if(this.state.currentItemList.length === 0){return <p> {'loading...'} </p>}

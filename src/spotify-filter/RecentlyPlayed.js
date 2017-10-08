@@ -37,7 +37,7 @@ class RecentlyPlayed extends Component {
   render() {
     let itemNodes = this.state.currentItemList.map((item, i) => {
       return (
-        <Square item={item.track} key={i}/>
+        <Square item={item.track} id={i} key={i}/>
       )
     });
     if(this.state.currentItemList.length === 0){return <p> {'loading...'} </p>}
