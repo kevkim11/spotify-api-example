@@ -1,6 +1,6 @@
 var SpotifyWebApi = require('spotify-web-api-node');
 
-let accessToken = "BQAPcuEtMDE8oZV2DEi3kI0MfYdbspIUK_-hgA7-jGALKcwSyrGIHG3uo_sdx8p5ie4Zo-ff5NRyE-pA1T2MdLYX3qiL8efybtAWzzDMU0HBTb2_Qtwp8Sv0V72yhDnEk0enAoe6tva6X4KvisWmO0jDzd2dP9C8sXjEv80n59gQk64XV7qgfWw";
+let accessToken = "BQBIgsu5b3DAciP629k2MrNdnWO_SIoLbF7yGZSJZo3o3rsDGl-F22ECojZyUXQmhezcO07mueTZfsFJu0meKep8pXu176-fO8Mfzoo5uVweds_VHSZwLxeGs2YNL9iwZmGahpqua7I7NxOhv_wG6AlnyIOBeQGeIv_ttPbRyOqvc5ysUTtubg0";
 
 var credentials = {
   clientId : 'e55391b719e94dc78334fcdb648cdec6',
