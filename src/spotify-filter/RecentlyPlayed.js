@@ -15,7 +15,7 @@ class RecentlyPlayed extends Component {
       currentItemList: [],
       requestFailed: false,
     };
-    this.numOfSquare = 12;
+    this.numOfSquare = 36;
   }
 
   // refreshToken() {

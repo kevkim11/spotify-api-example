@@ -38,7 +38,7 @@ function Square(props) {
 
   return (
     <div className="flex-square">
-      <img src={imgUrl} alt=""/>
+      <img className="track-img" src={imgUrl} alt=""/>
       <div className="overlay">
         <div className="text">{props.id +1}) {songName} - {artistsName}</div>
         {/*<div className="text">songName: </div>*/}

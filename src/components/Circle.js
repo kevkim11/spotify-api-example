@@ -15,7 +15,10 @@ function Circle(props) {
 
   return (
     <div className="flex-square">
-      <img src={imgUrl} alt=""/>
+      <img
+        // className={this.width/this.height > 1 ? "artist-img-wide" : "artist-img-tall"}
+        className={"artist-img-wide"}
+        src={imgUrl} alt=""/>
       <div className="overlay">
         <div className="text">{artistsName}</div>
         {/*<div className="text">songName: </div>*/}
